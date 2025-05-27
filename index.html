@@ -26,7 +26,6 @@
       --modal-error-text: #b02a37;
       --modal-warning-border: #3498db;
       --modal-warning-text: #2980b9;
-      
     }
 
     * {
@@ -195,25 +194,22 @@
       width: 100vw;
       height: 100vh;
       background: rgba(0, 0, 0, 0.7);
-      display: none;
+      display: flex;
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    #modal.mostrar {
-      display: flex;
-      animation: fadeIn 0.3s ease forwards;
+    #modal.active {
+      opacity: 1;
+      visibility: visible;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
+    #modal.active #modalContenido {
+      animation: slideIn 0.3s ease forwards;
     }
 
     #modalContenido {
@@ -226,7 +222,141 @@
       box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
       max-height: 90vh;
       overflow-y: auto;
-      animation: slideIn 0.3s ease forwards;
+      transform: translateY(-30px);
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    #messageModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    #messageModal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #messageModal.active #messageModalContent {
+      transform: translateY(0);
+    }
+
+    #messageModalContent {
+      background-color: white;
+      padding: 30px;
+      border-radius: var(--border-radius);
+      text-align: center;
+      box-shadow: var(--box-shadow);
+      max-width: 450px;
+      width: 90%;
+      transform: translateY(-20px);
+      transition: transform 0.3s ease;
+      position: relative;
+      border-top: 5px solid;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    #messageModalContent .message-icon {
+      margin-bottom: 5px;
+    }
+
+    #messageModalContent .message-icon svg {
+      width: 60px;
+      height: 60px;
+    }
+
+    #messageModalContent h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+
+    #messageModalContent p {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    #messageModalButtons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    #messageModalButtons button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    #messageModalButtons .btn-confirm {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    #messageModalButtons .btn-confirm:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    #messageModalButtons .btn-cancel {
+      background-color: #ccc;
+      color: var(--text-color);
+    }
+
+    #messageModalButtons .btn-cancel:hover {
+      background-color: #bbb;
+      transform: translateY(-1px);
+    }
+
+    #messageModalContent.success {
+      border-color: var(--modal-success-border);
+    }
+
+    #messageModalContent.success .message-icon svg {
+      fill: var(--modal-success-border);
+    }
+
+    #messageModalContent.error {
+      border-color: var(--modal-error-border);
+    }
+
+    #messageModalContent.error .message-icon svg {
+      fill: var(--modal-error-border);
+    }
+
+    #messageModalContent.warning {
+      border-color: var(--modal-warning-border);
+    }
+
+    #messageModalContent.warning .message-icon svg {
+      fill: var(--modal-warning-border);
+    }
+
+    #messageModalButtons.single-button {
+      justify-content: center;
+    }
+
+    #messageModalButtons.single-button button {
+      margin: 0 auto;
+      width: 60%;
     }
 
     @keyframes slideIn {
@@ -328,158 +458,6 @@
       background: #f9f9f9;
     }
 
-    .modal-alert-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-alert-overlay.show {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal-alert-content {
-      background-color: white;
-      padding: 30px;
-      border-radius: var(--border-radius);
-      text-align: center;
-      box-shadow: var(--box-shadow);
-      max-width: 450px;
-      width: 90%;
-      transform: translateY(-20px);
-      transition: transform 0.3s ease;
-      position: relative;
-      border-top: 5px solid;
-    }
-
-    .modal-alert-overlay.show .modal-alert-content {
-      transform: translateY(0);
-    }
-
-    .modal-alert-content .icon {
-      margin-bottom: 15px;
-    }
-
-    .modal-alert-content .icon svg {
-      width: 60px;
-      height: 60px;
-    }
-
-    .modal-alert-content p {
-      font-size: 1.1rem;
-      margin-bottom: 25px;
-      color: var(--text-color);
-      font-weight: 500;
-    }
-
-    .modal-alert-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-    }
-
-    .modal-alert-buttons button {
-      padding: 12px 25px;
-      border: none;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.2s ease, transform 0.1s ease;
-    }
-
-    .modal-alert-buttons .btn-confirm {
-      background-color: var(--danger-color);
-      color: white;
-      order: 1;
-    }
-
-    .modal-alert-buttons .btn-confirm:hover {
-      background-color: var(--danger-dark);
-      transform: translateY(-1px);
-    }
-
-    .modal-alert-buttons .btn-cancel {
-      background-color: #ccc;
-      color: var(--text-color);
-      order: 2;
-    }
-
-    .modal-alert-buttons .btn-cancel:hover {
-      background-color: #bbb;
-      transform: translateY(-1px);
-    }
-
-    .modal-alert-content.success {
-      border-color: var(--modal-success-border);
-    }
-
-    .modal-alert-content.success .icon svg {
-      fill: var(--modal-success-border);
-    }
-
-    .modal-alert-content.success .btn-confirm {
-      background-color: var(--secondary-color);
-    }
-
-    .modal-alert-content.success .btn-confirm:hover {
-      background-color: var(--secondary-dark);
-    }
-
-    .modal-alert-content.error {
-      border-color: var(--modal-error-border);
-    }
-
-    .modal-alert-content.error .icon svg {
-      fill: var(--modal-error-border);
-    }
-
-    .modal-alert-content.error .btn-confirm {
-      background-color: var(--modal-error-border);
-    }
-
-    .modal-alert-content.error .btn-confirm:hover {
-      background-color: var(--danger-dark);
-    }
-
-    .modal-alert-content.warning {
-      border-color: var(--modal-warning-border);
-    }
-
-    .modal-alert-content.warning .icon svg {
-      fill: var(--modal-warning-border);
-    }
-
-    .modal-alert-content.warning .btn-confirm {
-      background-color: var(--modal-warning-border);
-      color: white;
-      /* Changed to white for better contrast on blue */
-    }
-
-    .modal-alert-content.warning .btn-confirm:hover {
-      background-color: var(--primary-dark);
-      /* Changed to primary-dark for hover effect */
-    }
-
-    .modal-alert-buttons.single-button {
-      justify-content: center;
-    }
-
-    .modal-alert-buttons.single-button button {
-      margin: 0 auto;
-      width: 60%;
-    }
-
     .estado-badge {
       display: inline-block;
       padding: 4px 10px;
@@ -563,16 +541,17 @@
   </div>
   <button id="btnAbrirModal">+ Nueva Cita</button>
   <div id="contenedorCitas"></div>
-  <div class="modal-alert-overlay" id="customAlert">
-    <div class="modal-alert-content">
-      <div class="icon" id="alertIcon"></div>
-      <p id="alertMessage"></p>
-      <div class="modal-alert-buttons" id="alertButtons">
-        <button class="btn-confirm" id="alertConfirmBtn">Aceptar</button>
-        <button class="btn-cancel" id="alertCancelBtn">Cancelar</button>
+
+  <div id="messageModal">
+    <div id="messageModalContent">
+      <div class="message-icon" id="messageIcon"></div>
+      <h3 id="messageModalTitle"></h3>
+      <p id="messageModalText"></p>
+      <div id="messageModalButtons">
       </div>
     </div>
   </div>
+
   <div id="modal">
     <div id="modalContenido">
       <button id="btnCerrarModal" title="Cerrar modal">&times;</button>
@@ -583,7 +562,7 @@
         <label for="nombrePropietario">Nombre del propietario:</label>
         <input type="text" id="nombrePropietario" name="nombrePropietario" />
         <label for="telefono">Teléfono:</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="Ej. 5551234567" />
+        <input type="tel" id="telefono" name="telefono" placeholder="Ej. 3126458978" />
         <label for="fecha">Fecha de la cita:</label>
         <input type="date" id="fecha" name="fecha" />
         <label for="hora">Hora de la cita:</label>
@@ -616,11 +595,12 @@
       </form>
     </div>
   </div>
+
   <script>
     const modal = document.getElementById('modal');
     const btnAbrirModal = document.getElementById('btnAbrirModal');
     const btnCerrarModal = document.getElementById('btnCerrarModal');
-    const form = document.getElementById('formCita');
+    const formularioCita = document.getElementById('formCita');
     const modalTitulo = document.getElementById('modalTitulo');
     const btnSubmit = document.getElementById('btnSubmit');
     const contenedorCitas = document.getElementById('contenedorCitas');
@@ -628,12 +608,14 @@
     const filtroEstado = document.getElementById('filtroEstado');
     const btnLimpiar = document.getElementById('btnLimpiar');
     const estadoCitaSelect = document.getElementById('estadoCita');
-    const customAlert = document.getElementById('customAlert');
-    const alertMessage = document.getElementById('alertMessage');
-    const alertIcon = document.getElementById('alertIcon');
-    const alertButtons = document.getElementById('alertButtons');
-    const alertConfirmBtn = document.getElementById('alertConfirmBtn');
-    const alertCancelBtn = document.getElementById('alertCancelBtn');
+
+    const messageModal = document.getElementById('messageModal');
+    const messageModalContent = document.getElementById('messageModalContent');
+    const messageModalTitle = document.getElementById('messageModalTitle');
+    const messageModalText = document.getElementById('messageModalText');
+    const messageModalIcon = document.getElementById('messageIcon');
+    const messageModalButtons = document.getElementById('messageModalButtons');
+
     let citas = JSON.parse(localStorage.getItem('citas')) || [];
     let citaEditandoId = null;
 
@@ -641,25 +623,66 @@
       return Date.now() + Math.floor(Math.random() * 1000);
     }
 
-    btnAbrirModal.addEventListener('click', () => {
-      citaEditandoId = null;
-      limpiarFormulario();
-      modalTitulo.textContent = 'Registrar Cita';
-      btnSubmit.textContent = 'Registrar Cita';
-      estadoCitaSelect.value = 'Abierta';
-      abrirModal();
-    });
-
-    btnCerrarModal.addEventListener('click', cerrarModal);
-
     function abrirModal() {
-      modal.classList.add('mostrar');
+      modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
 
     function cerrarModal() {
-      modal.classList.remove('mostrar');
+      modal.classList.remove('active');
       document.body.style.overflow = '';
+    }
+
+    function mostrarMensaje(title, message, type, showCancelButton = false, confirmAction = null, cancelAction = null) {
+      messageModalTitle.textContent = title;
+      messageModalText.textContent = message;
+      messageModalIcon.innerHTML = '';
+      messageModalButtons.innerHTML = '';
+
+      messageModalContent.className = 'modal-alert-content';
+      messageModalContent.classList.add(type);
+
+      let iconSvg = '';
+      if (type === 'success') {
+        iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>`;
+      } else if (type === 'error') {
+        iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+      } else if (type === 'warning') {
+        iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2V8h2v6z"/></svg>`;
+      }
+      messageModalIcon.innerHTML = iconSvg;
+
+      const confirmBtn = document.createElement('button');
+      confirmBtn.classList.add('btn-confirm');
+      confirmBtn.textContent = 'Aceptar';
+      confirmBtn.onclick = () => {
+        messageModal.classList.remove('active');
+        document.body.style.overflow = '';
+        if (confirmAction) {
+          confirmAction();
+        }
+      };
+      messageModalButtons.appendChild(confirmBtn);
+
+      if (showCancelButton) {
+        const cancelBtn = document.createElement('button');
+        cancelBtn.classList.add('btn-cancel');
+        cancelBtn.textContent = 'Cancelar';
+        cancelBtn.onclick = () => {
+          messageModal.classList.remove('active');
+          document.body.style.overflow = '';
+          if (cancelAction) {
+            cancelAction();
+          }
+        };
+        messageModalButtons.appendChild(cancelBtn);
+        messageModalButtons.classList.remove('single-button');
+      } else {
+        messageModalButtons.classList.add('single-button');
+      }
+
+      messageModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
     function formatTime12Hour(time24) {
@@ -680,7 +703,7 @@
         month: 'long',
         day: 'numeric'
       };
-      return new Date(fecha).toLocaleDateString('es-ES', opciones);
+      return new Date(fecha + 'T00:00:00').toLocaleDateString('es-ES', opciones);
     }
 
     function getEstadoClass(estado) {
@@ -730,66 +753,29 @@
         const estadoClass = getEstadoClass(cita.estado || 'Abierta');
         const imagenSrc = getImagenPorTipo(cita.tipoMascota);
         div.innerHTML = `
-<img src="${imagenSrc}" alt="${cita.tipoMascota}" class="cita-imagen">
-<strong>#${index + 1} - ${cita.nombreMascota}</strong> (${cita.tipoMascota})
-<p><strong>Propietario:</strong> ${cita.nombrePropietario}</p>
-<p><strong>Teléfono:</strong> ${cita.telefono}</p>
-<p><strong>Fecha:</strong> ${formatFecha(cita.fecha)}</p>
-<p><strong>Hora:</strong> ${formatTime12Hour(cita.hora)}</p>
-<p><strong>Síntomas:</strong> ${cita.sintomas}</p>
-<p><strong>Estado:</strong> <span class="estado-badge ${estadoClass}">${cita.estado || 'Abierta'}</span></p>
-<div class="acciones">
-<button onclick="editarCita(${cita.id})">Editar</button>
-<button onclick="confirmarEliminarCita(${cita.id})" class="btn-eliminar">Eliminar</button>
-</div>
-`;
+                    <img src="${imagenSrc}" alt="${cita.tipoMascota}" class="cita-imagen">
+                    <strong>#${index + 1} - ${cita.nombreMascota}</strong> (${cita.tipoMascota})
+                    <p><strong>Propietario:</strong> ${cita.nombrePropietario}</p>
+                    <p><strong>Teléfono:</strong> ${cita.telefono}</p>
+                    <p><strong>Fecha:</strong> ${formatFecha(cita.fecha)}</p>
+                    <p><strong>Hora:</strong> ${formatTime12Hour(cita.hora)}</p>
+                    <p><strong>Síntomas:</strong> ${cita.sintomas}</p>
+                    <p><strong>Estado:</strong> <span class="estado-badge ${estadoClass}">${cita.estado || 'Abierta'}</span></p>
+                    <div class="acciones">
+                        <button onclick="editarCita(${cita.id})">Editar</button>
+                        <button onclick="confirmarEliminarCita(${cita.id})" class="btn-eliminar">Eliminar</button>
+                    </div>
+                `;
         contenedorCitas.appendChild(div);
       });
     }
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const datos = {
-        nombreMascota: form.nombreMascota.value.trim(),
-        nombrePropietario: form.nombrePropietario.value.trim(),
-        telefono: form.telefono.value.trim(),
-        fecha: form.fecha.value,
-        hora: form.hora.value,
-        tipoMascota: form.tipoMascota.value,
-        sintomas: form.sintomas.value.trim(),
-        estado: estadoCitaSelect.value
-      };
-      const errores = validarDatos(datos);
-      if (errores.length > 0) {
-        errores.forEach(error => mostrarAlerta(error, 'error'));
-        return;
-      }
-      if (citaEditandoId === null) {
-        datos.id = generarId();
-        citas.push(datos);
-        mostrarAlerta('Cita registrada correctamente', 'success');
-      } else {
-        datos.id = citaEditandoId;
-        const idx = citas.findIndex(c => c.id === citaEditandoId);
-        if (idx !== -1) {
-          citas[idx] = datos;
-          mostrarAlerta('Cita actualizada correctamente', 'success');
-        }
-      }
-      localStorage.setItem('citas', JSON.stringify(citas));
-      setTimeout(() => {
-        cerrarModal();
-        renderizarCitas();
-        limpiarFiltros();
-      }, 1500);
-    });
 
     function validarDatos(datos) {
       const errores = [];
       if (!datos.nombreMascota || !datos.nombrePropietario || !datos.telefono || !datos.fecha || !datos.hora || !datos.tipoMascota || !datos.sintomas) {
         errores.push('Todos los campos son obligatorios.');
       }
-      if (!/^\d+$/.test(datos.telefono) || datos.telefono.length < 7 || datos.telefono.length > 15) {
+      if (!/^\d{7,15}$/.test(datos.telefono)) {
         errores.push('El campo Teléfono debe contener solo números y tener entre 7 y 15 dígitos.');
       }
       const hoy = new Date();
@@ -799,59 +785,19 @@
         errores.push('La fecha de la cita no puede ser anterior a la fecha actual.');
       }
       if (datos.hora) {
-        const [hora, min] = datos.hora.split(':').map(Number);
+        const [hora] = datos.hora.split(':').map(Number);
         if (hora < 8 || hora >= 20) {
           errores.push('El horario de atención es de 8:00 AM a 8:00 PM.');
         }
       }
       if (datos.sintomas.length > 400) {
-        errores.push('Los síntomas deben tener un máximo dae 400 caracteres.');
+        errores.push('Los síntomas deben tener un máximo de 400 caracteres.');
       }
       return errores;
     }
 
-    function mostrarAlerta(message, type, showCancelButton = false, confirmAction = null) {
-      alertMessage.textContent = message;
-      alertIcon.innerHTML = '';
-      alertButtons.innerHTML = '';
-      customAlert.querySelector('.modal-alert-content').className = 'modal-alert-content';
-      let confirmBtnText = 'Aceptar';
-      customAlert.querySelector('.modal-alert-content').classList.add(type);
-      alertIcon.innerHTML = '';
-
-      const confirmBtn = document.createElement('button');
-      confirmBtn.classList.add('btn-confirm');
-      confirmBtn.textContent = confirmBtnText;
-      alertButtons.appendChild(confirmBtn);
-
-      if (showCancelButton) {
-        const cancelBtn = document.createElement('button');
-        cancelBtn.classList.add('btn-cancel');
-        cancelBtn.textContent = 'Cancelar';
-        alertButtons.appendChild(cancelBtn);
-        alertButtons.classList.remove('single-button');
-        cancelBtn.onclick = () => {
-          customAlert.classList.remove('show');
-          document.body.style.overflow = '';
-        };
-      } else {
-        alertButtons.classList.add('single-button');
-      }
-
-      confirmBtn.onclick = () => {
-        customAlert.classList.remove('show');
-        document.body.style.overflow = '';
-        if (confirmAction) {
-          confirmAction();
-        }
-      };
-
-      customAlert.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-
     function limpiarFormulario() {
-      form.reset();
+      formularioCita.reset();
     }
 
     function editarCita(id) {
@@ -860,19 +806,20 @@
       citaEditandoId = id;
       modalTitulo.textContent = 'Editar Cita';
       btnSubmit.textContent = 'Actualizar Cita';
-      form.nombreMascota.value = cita.nombreMascota;
-      form.nombrePropietario.value = cita.nombrePropietario;
-      form.telefono.value = cita.telefono;
-      form.fecha.value = cita.fecha;
-      form.hora.value = cita.hora;
-      form.tipoMascota.value = cita.tipoMascota;
-      form.sintomas.value = cita.sintomas;
+      formularioCita.nombreMascota.value = cita.nombreMascota;
+      formularioCita.nombrePropietario.value = cita.nombrePropietario;
+      formularioCita.telefono.value = cita.telefono;
+      formularioCita.fecha.value = cita.fecha;
+      formularioCita.hora.value = cita.hora;
+      formularioCita.tipoMascota.value = cita.tipoMascota;
+      formularioCita.sintomas.value = cita.sintomas;
       estadoCitaSelect.value = cita.estado || 'Abierta';
       abrirModal();
     }
 
     function confirmarEliminarCita(id) {
-      mostrarAlerta(
+      mostrarMensaje(
+        'Confirmar Eliminación',
         '¿Estás seguro que deseas eliminar esta cita?',
         'warning',
         true,
@@ -881,7 +828,7 @@
           localStorage.setItem('citas', JSON.stringify(citas));
           renderizarCitas();
           limpiarFiltros();
-          mostrarAlerta('Cita eliminada correctamente', 'success');
+          mostrarMensaje('Éxito', 'Cita eliminada correctamente', 'success');
         }
       );
     }
@@ -917,6 +864,60 @@
         btnLimpiar.classList.remove('mostrar');
       }
     }
+
+    btnAbrirModal.addEventListener('click', () => {
+      citaEditandoId = null;
+      limpiarFormulario();
+      modalTitulo.textContent = 'Registrar Cita';
+      btnSubmit.textContent = 'Registrar Cita';
+      estadoCitaSelect.value = 'Abierta';
+      abrirModal();
+    });
+
+    btnCerrarModal.addEventListener('click', cerrarModal);
+
+    formularioCita.addEventListener('submit', e => {
+      e.preventDefault();
+      const datos = {
+        nombreMascota: formularioCita.nombreMascota.value.trim(),
+        nombrePropietario: formularioCita.nombrePropietario.value.trim(),
+        telefono: formularioCita.telefono.value.trim(),
+        fecha: formularioCita.fecha.value,
+        hora: formularioCita.hora.value,
+        tipoMascota: formularioCita.tipoMascota.value,
+        sintomas: formularioCita.sintomas.value.trim(),
+        estado: estadoCitaSelect.value
+      };
+      const errores = validarDatos(datos);
+      if (errores.length > 0) {
+        mostrarMensaje('Error de Validación', errores.join('\n'), 'error');
+        return;
+      }
+
+      if (citaEditandoId === null) {
+        datos.id = generarId();
+        citas.push(datos);
+        mostrarMensaje('Éxito', 'Cita registrada correctamente', 'success', false, () => {
+          cerrarModal();
+          renderizarCitas();
+          limpiarFiltros();
+        });
+      } else {
+        const idx = citas.findIndex(c => c.id === citaEditandoId);
+        if (idx !== -1) {
+          citas[idx] = {
+            ...datos,
+            id: citaEditandoId
+          };
+          mostrarMensaje('Éxito', 'Cita actualizada correctamente', 'success', false, () => {
+            cerrarModal();
+            renderizarCitas();
+            limpiarFiltros();
+          });
+        }
+      }
+      localStorage.setItem('citas', JSON.stringify(citas));
+    });
 
     document.addEventListener('DOMContentLoaded', () => {
       renderizarCitas();
