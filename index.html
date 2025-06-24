@@ -596,6 +596,19 @@
         flex-direction: column;
       }
     }
+
+    .cita-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .cita-header .estado-badge {
+      margin-top: 0;
+      margin-left: 10px;
+      font-size: 0.95rem;
+    }
   </style>
 </head>
 
@@ -831,19 +844,22 @@
         const estadoClass = getEstadoClass(cita.estado || 'Abierta');
         const imagenSrc = getImagenPorTipo(cita.tipoMascota);
         div.innerHTML = `
-                        <img src="${imagenSrc}" alt="${cita.tipoMascota}" class="cita-imagen">
-                        <strong>#${index + 1} - ${cita.nombreMascota}</strong> (${cita.tipoMascota})
-                        <p><strong>Propietario:</strong> ${cita.nombrePropietario}</p>
-                        <p><strong>Teléfono:</strong> ${cita.telefono}</p>
-                        <p><strong>Fecha:</strong> ${formatFecha(cita.fecha)}</p>
-                        <p><strong>Hora:</strong> ${formatTime12Hour(cita.hora)}</p>
-                        <p><strong>Síntomas:</strong> ${cita.sintomas}</p>
-                        <p><strong>Estado:</strong> <span class="estado-badge ${estadoClass}">${cita.estado || 'Abierta'}</span></p>
-                        <div class="acciones">
-                            <button onclick="editarCita(${cita.id})">Editar</button>
-                            <button onclick="confirmarEliminarCita(${cita.id})" class="btn-eliminar">Eliminar</button>
-                        </div>
-                    `;
+  <img src="${imagenSrc}" alt="${cita.tipoMascota}" class="cita-imagen">
+  <div class="cita-header">
+    <strong>#${index + 1} - ${cita.nombreMascota}</strong>
+    <span class="estado-badge ${estadoClass}">${cita.estado || 'Abierta'}</span>
+  </div>
+  <span style="color:#888; font-size:0.98rem;">(${cita.tipoMascota})</span>
+  <p><strong>Propietario:</strong> ${cita.nombrePropietario}</p>
+  <p><strong>Teléfono:</strong> ${cita.telefono}</p>
+  <p><strong>Fecha:</strong> ${formatFecha(cita.fecha)}</p>
+  <p><strong>Hora:</strong> ${formatTime12Hour(cita.hora)}</p>
+  <p><strong>Síntomas:</strong> ${cita.sintomas}</p>
+  <div class="acciones">
+    <button onclick="editarCita(${cita.id})">Editar</button>
+    <button onclick="confirmarEliminarCita(${cita.id})" class="btn-eliminar">Eliminar</button>
+  </div>
+`;
         contenedorCitas.appendChild(div);
       });
     }
