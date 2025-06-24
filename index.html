@@ -7,19 +7,31 @@
   <title>Citas Veterinaria "Dando Amor"</title>
   <style>
     :root {
+      /* Colores principales */
       --primary-color: #3498db;
       --primary-dark: #2980b9;
       --secondary-color: #2ecc71;
       --secondary-dark: #27ae60;
       --danger-color: #e74c3c;
       --danger-dark: #c0392b;
+
+      /* Colores de texto */
       --text-color: #333;
       --text-light: #777;
+
+      /* Fondos y superficies */
       --bg-color: #f8f9fa;
       --card-bg: #fff;
+
+      /* Propiedades de borde y sombra */
       --border-radius: 8px;
       --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      --hover-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+      /* Transiciones */
       --transition: all 0.3s ease;
+
+      /* Colores para modales de mensaje */
       --modal-success-border: #28a745;
       --modal-success-text: #1a7e3a;
       --modal-error-border: #dc3545;
@@ -28,6 +40,7 @@
       --modal-warning-text: #2980b9;
     }
 
+    /* Estilos generales */
     * {
       margin: 0;
       padding: 0;
@@ -45,20 +58,23 @@
       font-size: 15px;
     }
 
+    /* Título principal */
     h1 {
       text-align: center;
       margin-bottom: 30px;
       color: var(--primary-dark);
       font-size: 2.5rem;
+      font-weight: 700;
     }
 
+    /* Sección de filtros */
     #filtros {
       background: var(--card-bg);
       padding: 15px;
       border-radius: var(--border-radius);
       margin-bottom: 20px;
       display: flex;
-      gap: 10px;
+      gap: 15px;
       align-items: center;
       box-shadow: var(--box-shadow);
     }
@@ -67,20 +83,20 @@
     #filtros select {
       flex: 1;
       padding: 12px;
-      font-size: 1rem;
+      font-size: 1.1rem;
       border: 1px solid #ddd;
       border-radius: var(--border-radius);
       transition: var(--transition);
-      font-size: 1.3rem;
     }
 
     #filtros input:focus,
     #filtros select:focus {
       outline: none;
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
     }
 
+    /* Botón Limpiar Filtros */
     #btnLimpiar {
       padding: 12px 20px;
       background-color: var(--danger-color);
@@ -92,7 +108,7 @@
       transition: var(--transition);
       opacity: 0;
       visibility: hidden;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
     }
 
     #btnLimpiar.mostrar {
@@ -102,11 +118,13 @@
 
     #btnLimpiar:hover {
       background-color: var(--danger-dark);
+      transform: translateY(-1px);
     }
 
+    /* Botón Abrir Modal (Nueva Cita) */
     #btnAbrirModal {
       display: block;
-      margin: 20px auto;
+      margin: 25px auto;
       padding: 15px 30px;
       font-size: 1.1rem;
       font-weight: bold;
@@ -122,8 +140,10 @@
     #btnAbrirModal:hover {
       background-color: var(--secondary-dark);
       transform: translateY(-2px);
+      box-shadow: var(--hover-shadow);
     }
 
+    /* Contenedor de citas */
     #contenedorCitas {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -139,37 +159,43 @@
       border-top: 5px solid var(--primary-color);
       display: flex;
       flex-direction: column;
-    
+      justify-content: space-between;
     }
 
     #contenedorCitas>div:hover {
       transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--hover-shadow);
     }
 
     #contenedorCitas strong {
       color: var(--primary-dark);
+      font-size: 1.1rem;
+      margin-bottom: 5px;
     }
 
     #contenedorCitas p {
-      margin: 8px 0;
+      margin: 6px 0;
       color: var(--text-light);
+      font-size: 0.95rem;
     }
 
+    /* Botones dentro de las citas */
     #contenedorCitas button {
       margin-top: 15px;
-      padding: 8px 15px;
-      font-size:1.3rem;
+      padding: 10px 15px;
+      font-size: 1rem;
       background: var(--primary-color);
       color: white;
       border: none;
       border-radius: var(--border-radius);
       cursor: pointer;
       transition: var(--transition);
+      font-weight: 600;
     }
 
     #contenedorCitas button:hover {
       background: var(--primary-dark);
+      transform: translateY(-1px);
     }
 
     #contenedorCitas button.btn-eliminar {
@@ -180,6 +206,7 @@
       background: var(--danger-dark);
     }
 
+    /* Imagen de mascota en la cita */
     .cita-imagen {
       width: 100px;
       height: 100px;
@@ -187,10 +214,12 @@
       border-radius: 50%;
       margin-bottom: 15px;
       align-self: center;
-      border: 2px solid var(--primary-color);
+      border: 3px solid var(--primary-color);
       padding: 5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
+    /* Modal general */
     #modal {
       position: fixed;
       top: 0;
@@ -219,11 +248,11 @@
     #modalContenido {
       background: var(--card-bg);
       border-radius: var(--border-radius);
-      width: 120%;
-      max-width: 690px;
-      padding: 25px;
+      width: 90%;
+      max-width: 600px;
+      padding: 30px;
       position: relative;
-      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
       max-height: 90vh;
       overflow-y: auto;
       transform: translateY(-30px);
@@ -231,6 +260,7 @@
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
+    /* Modal de mensajes (alertas/confirmaciones) */
     #messageModal {
       position: fixed;
       top: 0;
@@ -283,15 +313,15 @@
     }
 
     #messageModalContent h3 {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       margin-bottom: 10px;
       color: var(--text-color);
     }
 
     #messageModalContent p {
-      font-size: 1.3rem;
+      font-size: 1rem;
       margin-bottom: 15px;
-      color: var(--text-color);
+      color: var(--text-light);
       font-weight: 500;
     }
 
@@ -308,7 +338,7 @@
       cursor: pointer;
       font-weight: bold;
       transition: background-color 0.2s ease, transform 0.1s ease;
-          font-size: 1.3rem;
+      font-size: 1rem;
     }
 
     #messageModalButtons .btn-confirm {
@@ -331,6 +361,7 @@
       transform: translateY(-1px);
     }
 
+    /* Clases para tipos de mensaje */
     #messageModalContent.success {
       border-color: var(--modal-success-border);
     }
@@ -364,6 +395,7 @@
       width: 60%;
     }
 
+    /* Animación del modal */
     @keyframes slideIn {
       from {
         transform: translateY(-30px);
@@ -376,13 +408,16 @@
       }
     }
 
+    /* Título dentro del modal */
     #modalContenido h2 {
       margin-bottom: 20px;
       text-align: center;
       color: var(--primary-dark);
       font-size: 1.8rem;
+      font-weight: 600;
     }
 
+    /* Formulario */
     form {
       display: flex;
       flex-direction: column;
@@ -392,7 +427,7 @@
     label {
       font-weight: 600;
       color: var(--text-color);
-      margin-bottom: 5px;
+      margin-bottom: 2px;
       display: block;
     }
 
@@ -421,9 +456,15 @@
       resize: vertical;
     }
 
-    button[type="submit"] {
-      background-color: var(--primary-color);
-      color: white;
+    /* Contenedor de botones de acción en el modal */
+    .modal-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .modal-actions button {
+      flex: 1;
       padding: 15px;
       font-size: 1.1rem;
       border: none;
@@ -431,13 +472,31 @@
       border-radius: var(--border-radius);
       transition: var(--transition);
       font-weight: bold;
-      margin-top: 10px;
     }
 
-    button[type="submit"]:hover {
+    /* Estilo del botón principal de submit */
+    .modal-actions button[type="submit"] {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .modal-actions button[type="submit"]:hover {
       background-color: var(--primary-dark);
+      transform: translateY(-1px);
     }
 
+    /* Estilo del nuevo botón Cancelar */
+    .modal-actions .btn-cancelar-modal {
+      background-color: #ccc;
+      color: var(--text-color);
+    }
+
+    .modal-actions .btn-cancelar-modal:hover {
+      background-color: #bbb;
+      transform: translateY(-1px);
+    }
+
+    /* Botón cerrar modal superior derecho */
     #btnCerrarModal {
       position: absolute;
       top: 15px;
@@ -463,6 +522,7 @@
       background: #f9f9f9;
     }
 
+    /* Badges de estado */
     .estado-badge {
       display: inline-block;
       padding: 4px 10px;
@@ -487,6 +547,7 @@
       color: #c62828;
     }
 
+    /* Acciones de botones */
     .acciones {
       display: flex;
       gap: 10px;
@@ -498,6 +559,7 @@
       margin-top: 0;
     }
 
+    /* Sin citas */
     .no-citas {
       text-align: center;
       background: var(--card-bg);
@@ -516,6 +578,7 @@
       display: block;
     }
 
+    /* Media queries para responsividad */
     @media (max-width: 768px) {
       #filtros {
         flex-direction: column;
@@ -527,6 +590,10 @@
 
       body {
         padding: 10px;
+      }
+
+      .modal-actions {
+        flex-direction: column;
       }
     }
   </style>
@@ -596,7 +663,10 @@
             <option value="Anulada">Anulada</option>
           </select>
         </div>
-        <button type="submit" id="btnSubmit">Registrar Cita</button>
+        <div class="modal-actions">
+          <button type="submit" id="btnSubmit">Registrar Cita</button>
+          <button type="button" class="btn-cancelar-modal" onclick="cerrarModal()">Cancelar</button>
+        </div>
       </form>
     </div>
   </div>
@@ -638,6 +708,7 @@
       document.body.style.overflow = '';
     }
 
+    // Muestra un modal de mensaje para confirmaciones o alertas
     function mostrarMensaje(title, message, type, showCancelButton = false, confirmAction = null, cancelAction = null) {
       messageModalTitle.textContent = title;
       messageModalText.textContent = message;
@@ -724,6 +795,7 @@
       }
     }
 
+    // Obtiene la URL de la imagen de la mascota según su tipo
     function getImagenPorTipo(tipoMascota) {
       const imagenes = {
         "Elefante": "https://th.bing.com/th/id/OIP.eSp4YRgVYpFpOvwng-ORewHaHa?rs=1&pid=ImgDetMain",
@@ -742,6 +814,7 @@
       return imagenes[normalizedTipo] || imagenes["Otro"];
     }
 
+    // Renderiza las citas en el contenedor
     function renderizarCitas(lista = citas) {
       contenedorCitas.innerHTML = '';
       if (lista.length === 0) {
@@ -758,23 +831,24 @@
         const estadoClass = getEstadoClass(cita.estado || 'Abierta');
         const imagenSrc = getImagenPorTipo(cita.tipoMascota);
         div.innerHTML = `
-                    <img src="${imagenSrc}" alt="${cita.tipoMascota}" class="cita-imagen">
-                    <strong>#${index + 1} - ${cita.nombreMascota}</strong> (${cita.tipoMascota})
-                    <p><strong>Propietario:</strong> ${cita.nombrePropietario}</p>
-                    <p><strong>Teléfono:</strong> ${cita.telefono}</p>
-                    <p><strong>Fecha:</strong> ${formatFecha(cita.fecha)}</p>
-                    <p><strong>Hora:</strong> ${formatTime12Hour(cita.hora)}</p>
-                    <p><strong>Síntomas:</strong> ${cita.sintomas}</p>
-                    <p><strong>Estado:</strong> <span class="estado-badge ${estadoClass}">${cita.estado || 'Abierta'}</span></p>
-                    <div class="acciones">
-                        <button onclick="editarCita(${cita.id})">Editar</button>
-                        <button onclick="confirmarEliminarCita(${cita.id})" class="btn-eliminar">Eliminar</button>
-                    </div>
-                `;
+                        <img src="${imagenSrc}" alt="${cita.tipoMascota}" class="cita-imagen">
+                        <strong>#${index + 1} - ${cita.nombreMascota}</strong> (${cita.tipoMascota})
+                        <p><strong>Propietario:</strong> ${cita.nombrePropietario}</p>
+                        <p><strong>Teléfono:</strong> ${cita.telefono}</p>
+                        <p><strong>Fecha:</strong> ${formatFecha(cita.fecha)}</p>
+                        <p><strong>Hora:</strong> ${formatTime12Hour(cita.hora)}</p>
+                        <p><strong>Síntomas:</strong> ${cita.sintomas}</p>
+                        <p><strong>Estado:</strong> <span class="estado-badge ${estadoClass}">${cita.estado || 'Abierta'}</span></p>
+                        <div class="acciones">
+                            <button onclick="editarCita(${cita.id})">Editar</button>
+                            <button onclick="confirmarEliminarCita(${cita.id})" class="btn-eliminar">Eliminar</button>
+                        </div>
+                    `;
         contenedorCitas.appendChild(div);
       });
     }
 
+    // Valida los datos del formulario de cita
     function validarDatos(datos) {
       const errores = [];
       if (!datos.nombreMascota || !datos.nombrePropietario || !datos.telefono || !datos.fecha || !datos.hora || !datos.tipoMascota || !datos.sintomas) {
@@ -805,6 +879,7 @@
       formularioCita.reset();
     }
 
+    // Rellena el formulario con los datos de la cita para editar
     function editarCita(id) {
       const cita = citas.find(c => c.id === id);
       if (!cita) return;
@@ -822,6 +897,7 @@
       abrirModal();
     }
 
+    // Confirma la eliminación de una cita
     function confirmarEliminarCita(id) {
       mostrarMensaje(
         'Confirmar Eliminación',
@@ -838,6 +914,7 @@
       );
     }
 
+    // Filtra las citas mostradas según la búsqueda y el estado
     function filtrarCitas() {
       const textoBusqueda = buscador.value.toLowerCase();
       const estadoSeleccionado = filtroEstado.value;
@@ -855,6 +932,7 @@
       actualizarBotonLimpiarFiltros();
     }
 
+    // Limpia los filtros y vuelve a renderizar todas las citas
     function limpiarFiltros() {
       buscador.value = '';
       filtroEstado.value = '';
@@ -862,6 +940,7 @@
       renderizarCitas();
     }
 
+    // Muestra u oculta el botón de limpiar filtros
     function actualizarBotonLimpiarFiltros() {
       if (buscador.value !== '' || filtroEstado.value !== '') {
         btnLimpiar.classList.add('mostrar');
@@ -870,6 +949,7 @@
       }
     }
 
+    // Event Listeners
     btnAbrirModal.addEventListener('click', () => {
       citaEditandoId = null;
       limpiarFormulario();
@@ -924,6 +1004,7 @@
       localStorage.setItem('citas', JSON.stringify(citas));
     });
 
+    // Inicialización al cargar la página
     document.addEventListener('DOMContentLoaded', () => {
       renderizarCitas();
       actualizarBotonLimpiarFiltros();
